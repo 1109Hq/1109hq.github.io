@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tesla 授权回调</title>
+<style>
+body{font-family:-apple-system,"PingFang SC",sans-serif;background:#f5f6f8;margin:0;padding:32px 16px;color:#1c1c1e}
+.card{max-width:680px;margin:0 auto;background:#fff;border-radius:14px;padding:24px;box-shadow:0 2px 14px rgba(0,0,0,.07)}
+h1{font-size:18px;margin:0 0 10px}
+p{color:#666;font-size:14px;line-height:1.6}
+textarea{width:100%;min-height:110px;margin-top:10px;padding:10px;border:1px solid #dcdfe4;border-radius:10px;font:12px/1.5 Menlo,monospace;word-break:break-all}
+button{margin-top:10px;padding:9px 16px;border:0;border-radius:9px;background:#3b5bdb;color:#fff;font-size:14px}
+.ok{color:#2f9e44}.err{color:#e03131}
+</style>
+</head>
+<body><div class="card"><h1>授权回调</h1><p id="m">读取中…</p>
+<textarea id="o" readonly></textarea><button id="c">复制</button>
+<p style="font-size:12px;color:#999">复制上面整段内容发回对话。授权码两分钟有效。</p></div>
+<script>
+var q=new URLSearchParams(location.search),m=document.getElementById('m'),o=document.getElementById('o'),e=q.get('error');
+if(e){m.className='err';m.textContent='失败：'+e+' '+(q.get('error_description')||'');}
+else if(!q.get('code')){m.className='err';m.textContent='没有 code 参数：'+location.href;}
+else{m.className='ok';m.textContent='已获取授权码，请复制下方内容。';o.value=location.href;
+document.getElementById('c').onclick=function(){o.select();document.execCommand('copy');this.textContent='已复制';};}
+</script></body></html>
